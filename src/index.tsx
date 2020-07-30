@@ -50,15 +50,16 @@ interface Props extends TextInputProps {
   customShowPasswordImage?: string;
   /**Custom Style for position, size and color for label, when it's focused or blurred*/
   customLabelStyles?: {
-    leftFocused: 15;
-    leftBlurred: 30;
+    leftFocused: 0;
+    leftBlurred: 0;
     topFocused: 0;
     topBlurred: 10;
     fontSizeFocused: 10;
     fontSizeBlurred: 14;
-    colorFocused: '#49658c';
-    colorBlurred: '#49658c';
+    colorFocused: '#00B6E8',
+    colorBlurred: '#7F7F7F',
   };
+  noBorder?: true | false;
   /**Required if onFocus or onBlur is overrided*/
   isFocused: boolean;
   /**Ref to FloatingLabelInput*/
@@ -126,14 +127,14 @@ const FloatingLabelInput: React.RefForwardingComponent<InputRef, Props> = (
     : makeInvisibleWhite;
 
   const customLabelStyles = {
-    leftFocused: 15,
-    leftBlurred: 30,
-    topFocused: 0,
+    leftFocused: 0,
+    leftBlurred: 0,
+    topFocused: -3,
     topBlurred: 12.5,
     fontSizeFocused: 10,
     fontSizeBlurred: 14,
-    colorFocused: '#49658c',
-    colorBlurred: '#49658c',
+    colorFocused: '#00B6E8',
+    colorBlurred: '#7F7F7F',
     ...props.customLabelStyles,
   };
 
@@ -161,18 +162,28 @@ const FloatingLabelInput: React.RefForwardingComponent<InputRef, Props> = (
     ...props.inputStyles,
   };
 
+    const noBorder: Object = {
+        ...styles.noBorder,
+    };
+
+    const grayText: Object = {
+        color: customLabelStyles.colorFocused,
+        ...styles.grayText,
+    };
+
   const containerStyles: Object = {
-    height: 50,
-    color: '#49658c',
-    borderColor: '#49658c',
-    borderWidth: 2,
-    borderRadius: 30,
+    height: 45,
+    color: '#000000',
     backgroundColor: '#00000000',
-    paddingTop: 10,
-    paddingBottom: 10,
     alignContent: 'center',
     justifyContent: 'center',
     ...props.containerStyles,
+  };
+
+  const containerInput = {
+      borderColor: isFocused ? '#00B6E8' : '#F2F2F2',
+      borderBottomWidth: 1,
+    ...styles.containerInput,
   };
 
   const toggleButton = {
@@ -187,10 +198,10 @@ const FloatingLabelInput: React.RefForwardingComponent<InputRef, Props> = (
 
   return (
     <View style={containerStyles}>
-      <Text onPress={setFocus} style={style}>
+      <Text onPress={setFocus} style={[style, props.noBorder ? grayText : null]}>
         {props.label}
       </Text>
-      <View style={styles.containerInput}>
+      <View style={[containerInput, props.noBorder ? noBorder : null]}>
         <TextInput
           onSubmitEditing={onSubmitEditing}
           secureTextEntry={
