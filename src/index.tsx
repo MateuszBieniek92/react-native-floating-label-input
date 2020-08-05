@@ -22,10 +22,10 @@ import makeInvisibleWhite from './assets/make_invisible_white.png';
 import makeVisibleBlack from './assets/make_visible_black.png';
 import makeInvisibleBlack from './assets/make_invisible_black.png';
 
-const { UIManager } = NativeModules;
+// const { UIManager } = NativeModules;
 
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+// UIManager.setLayoutAnimationEnabledExperimental &&
+// UIManager.setLayoutAnimationEnabledExperimental(true);
 
 interface Props extends TextInputProps {
   /**Style to the container of whole component*/
@@ -78,7 +78,7 @@ const FloatingLabelInput: React.RefForwardingComponent<InputRef, Props> = (
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    LayoutAnimation.spring();
+//     LayoutAnimation.spring();
     setIsFocused(props.isFocused);
   }, [props.isFocused]);
 
@@ -89,13 +89,13 @@ const FloatingLabelInput: React.RefForwardingComponent<InputRef, Props> = (
   }));
 
   function handleFocus() {
-    LayoutAnimation.spring();
+//     LayoutAnimation.spring();
     setIsFocused(true);
   }
 
   function handleBlur() {
     if (props.value === '' || props.value == null) {
-      LayoutAnimation.spring();
+//       LayoutAnimation.spring();
       setIsFocused(false);
     }
   }
